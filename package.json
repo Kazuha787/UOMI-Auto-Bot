@@ -1,0 +1,38 @@
+{
+  "name": "uomi-auto-bot",
+  "version": "1.0.0",
+  "description": "A Node.js bot to automate wrapping and unwrapping UOMI to WUOMI on the Uomi Testnet",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kazuha787/UOMI-Auto-Bot.git"
+  },
+  "keywords": [
+    "uomi",
+    "testnet",
+    "blockchain",
+    "ethers",
+    "automation",
+    "cryptocurrency"
+  ],
+  "author": "Kazuha",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kazuha787/UOMI-Auto-Bot/issues"
+  },
+  "homepage": "https://github.com/Kazuha787/UOMI-Auto-Bot#readme",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "dotenv": "^16.0.3",
+    "ethers": "^5.7.2",
+    "figlet": "^1.7.0",
+    "inquirer": "^8.2.6"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
