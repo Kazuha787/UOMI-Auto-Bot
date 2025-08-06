@@ -186,5 +186,3 @@ For questions or support, open an issue on this repository or contact the creato
    git commit -m "Add README file"
    git push origin main
    ```
-
-This README is concise, professional, and tailored to your project, providing clear instructions for users and contributors. Let me know if you need further tweaks or additional sections!
