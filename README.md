@@ -5,35 +5,36 @@
 
 ---
 
-## Overview
+# UOMI Auto Bot
 
-**UOMI Auto Bot** is a Python-based automation script designed for interacting with the UOMI Decentralized Exchange (DEX) on the UOMI testnet. This script facilitates automated token swaps across multiple trading pairs using the Uniswap V3-style router. It provides a user-friendly terminal interface with colorful output, loading animations, and robust error handling. The bot supports both manual and automated swap cycles for various tokens, including SYN, SIM, USDC, DOGE, and WUOMI.
+![UOMI Auto Bot Banner](https://via.placeholder.com/800x200.png?text=UOMI+Auto+Bot) <!-- Optional: Replace with a real banner image if available -->
 
-This project is open-source and hosted on [GitHub](https://github.com/Kazuha787/UOMI-Auto-Bot). Contributions and feedback are welcome!
+A Node.js script to automate wrapping and unwrapping of UOMI to WUOMI tokens on the Uomi Testnet. This bot allows users to perform transactions, check balances, and automate operations with customizable transaction counts and random amounts.
+
+**Created by Kazuha** | Built for the Uomi Testnet
 
 ---
 
 ## Features
 
-- **Automated Token Swaps**: Execute single or multiple swap cycles for predefined token pairs (e.g., SYN → UOMI, UOMI → WUOMI).
-- **User-Friendly Interface**: Interactive terminal with centered text, loading animations, and color-coded output using `colorama`.
-- **Dynamic Gas Management**: Automatically calculates gas fees based on the latest block data for efficient transaction execution.
-- **Error Handling**: Robust error handling for transaction failures and invalid inputs.
-- **Environment Configuration**: Securely manages sensitive data (e.g., private keys, wallet addresses) using `.env` files.
-- **Customizable Swap Options**: Supports both manual selection of token pairs and automated cycling through all pairs.
-- **Transaction Tracking**: Provides transaction links for the UOMI testnet explorer.
+- **Wrap UOMI to WUOMI**: Convert native UOMI tokens to WUOMI tokens.
+- **Unwrap WUOMI to UOMI**: Convert WUOMI tokens back to native UOMI.
+- **Auto Mode**: Perform both wrap and unwrap operations sequentially.
+- **Balance Display**: View UOMI and WUOMI balances for all configured accounts.
+- **Randomized Amounts**: Generate random transaction amounts between 0.001 and 0.004 UOMI/WUOMI.
+- **Multi-Account Support**: Process transactions for multiple private keys stored in a `.env` file.
+- **User-Friendly CLI**: Interactive command-line interface using `inquirer` for easy operation.
 
 ---
 
 ## Prerequisites
 
-Before running the UOMI Auto Bot, ensure you have the following:
+Before running the UOMI Auto Bot, ensure you have the following installed:
 
-- **Python 3.8+**: Install Python from [python.org](https://www.python.org/downloads/).
-- **Node.js**: Required for the UOMI testnet RPC (if applicable).
-- **UOMI Testnet Wallet**: A funded wallet with testnet tokens (e.g., UOMI, SYN, SIM, USDC, DOGE).
-- **Metamask or Compatible Wallet**: For managing your private key and wallet address.
-- **Dependencies**: Install required Python packages listed in `requirements.txt`.
+- **Node.js** (v16 or higher)
+- **npm** (Node Package Manager)
+- A `.env` file with private keys for the Uomi Testnet accounts
+- Access to the Uomi Testnet RPC endpoint (`https://finney.uomi.ai`)
 
 ---
 
@@ -46,104 +47,107 @@ Before running the UOMI Auto Bot, ensure you have the following:
    ```
 
 2. **Install Dependencies**:
+   Run the following command to install the required Node.js packages:
    ```bash
-   pip install -r requirements.txt
+   npm install ethers inquirer figlet chalk dotenv
    ```
-
-   Required packages:
-   - `web3`
-   - `python-dotenv`
-   - `colorama`
 
 3. **Set Up Environment Variables**:
-   Create a `.env` file in the project root and add the following:
-   ```plaintext
-   RPC_URL=https://finney.uomi.ai
-   PRIVATE_KEY=your_private_key_here
-   WALLET_ADDRESS=your_wallet_address_here
+   Create a `.env` file in the project root directory and add your private keys as follows:
+   ```env
+   PRIVATE_KEYS_1=your_private_key_1
+   PRIVATE_KEYS_2=your_private_key_2
+   PRIVATE_KEYS_3=your_private_key_3
    ```
+   - Replace `your_private_key_1`, `your_private_key_2`, etc., with your actual private keys.
+   - You can add as many private keys as needed ( PRIVATE_KEYS_1, PRIVATE_KEYS_2, etc.).
+   - Ensure there are no spaces around the keys and no trailing spaces.
 
-   **⚠️ Security Note**: Never share your private key or commit the `.env` file to version control.
-
-4. **Verify RPC Connection**:
-   Ensure the RPC URL (`https://finney.uomi.ai`) is accessible and the wallet is funded with testnet tokens.
+4. **Verify Configuration**:
+   Ensure the following constants in the script are correct:
+   - `RPC_URL`: `https://finney.uomi.ai`
+   - `CHAIN_ID`: `4386`
+   - `WUOMI_ADDRESS`: `0x5FCa78E132dF589c1c799F906dC867124a2567b2`
+   - `NATIVE_TOKEN`: `UOMI`
+   - `DELAY_SECONDS`: `1` (delay between transactions)
 
 ---
 
 ## Usage
 
-1. **Run the Script**:
+1. **Run the Bot**:
+   Start the bot by running the following command:
    ```bash
-   python index.py
+   node index.js
    ```
 
-2. **Terminal Interface**:
-   - The script displays a colorful ASCII banner and version information.
-   - Choose from available swap options (e.g., SYN → UOMI, UOMI → WUOMI, etc.).
-   - Select the `[Auto Swap All Pairs]` option for automated cycling through all token pairs.
-   - Enter the number of swaps or cycles when prompted.
+2. **Interact with the CLI**:
+   The bot will display a banner and prompt you to select an action:
+   - **Wrap UOMI to WUOMI**: Convert UOMI to WUOMI.
+   - **Unwrap WUOMI to UOMI**: Convert WUOMI back to UOMI.
+   - **Auto (Wrap then Unwrap)**: Perform both operations sequentially.
+   - **Show Balances**: Display UOMI and WUOMI balances for all accounts.
+   - **Exit**: Close the bot.
 
-3. **Example Workflow**:
-   - Select option `[1]` to swap `SYN → UOMI`.
-   - Input the number of swaps (e.g., `5`).
-   - The bot will execute the swaps, display transaction links, and show progress with loading animations.
+3. **Specify Number of Transactions**:
+   For wrap, unwrap, or auto modes, you will be prompted to enter the number of transactions to perform per account. The bot will use a random amount between `0.001` and `0.004` UOMI/WUOMI for each transaction.
 
-4. **Sample Output**:
-   ```
-   UOMI DEX Swap Terminal
-   Wallet: 0x1234...abcd | Time: 15:30:45 04-08-2025
-   ---------------------------------------
-   Swap Options:
-   [1] SYN → UOMI
-   [2] SIM → UOMI
-   [3] USDC → UOMI
-   [4] DOGE → UOMI
-   [5] UOMI → WUOMI
-   [6] Auto Swap All Pairs
-   ---------------------------------------
-   >> Select Option: 
-   ```
+4. **Monitor Transactions**:
+   - The bot logs transaction details, including transaction hashes (linked to `https://explorer.uomi.ai/tx/`).
+   - It checks for sufficient balances before executing transactions and skips accounts with insufficient funds.
+   - Balances are displayed after each set of transactions.
 
-## Technical Details
+---
 
-- **Web3 Integration**: Uses the `web3.py` library to interact with the UOMI testnet via the provided RPC URL.
-- **Router Contract**: Interacts with the Uniswap V3-style router at `0x197EEAd5Fe3DB82c4Cd55C5752Bc87AEdE11f230`.
-- **Gas Strategy**: Dynamically calculates `maxFeePerGas` and `maxPriorityFeePerGas` based on the latest block's base fee.
-- **Swap Logic**:
-  - For `UOMI → WUOMI`, uses a direct deposit transaction.
-  - For other pairs, approves ERC20 tokens and executes swaps using the `execute` function with Uniswap V3 commands.
-- **Randomized Amounts**: Generates random swap amounts (e.g., 0.001–0.004 UOMI for WUOMI swaps, 0.01 for others) to simulate realistic trading.
+## Example Output
+
+```
+============================================================
+                 UOMI BOT
+============================================================
+                 LETS FUCK THIS TESTNET
+          Created By Kazuha - By Uomi Testnet
+============================================================
+
+? Select an action: (Use arrow keys)
+> Wrap UOMI to WUOMI
+  Unwrap WUOMI to UOMI
+  Auto (Wrap then Unwrap)
+  Show Balances
+  Exit
+```
+
+---
+
+## Error Handling
+
+- **No Private Keys**: If no private keys are found in the `.env` file, the bot will exit with an error message.
+- **Insufficient Balance**: Transactions are skipped if the account lacks sufficient UOMI or WUOMI.
+- **Transaction Failures**: Errors during transactions (e.g., network issues) are logged, and the bot continues with the next operation.
+- **Invalid Input**: The CLI validates the number of transactions to ensure it is a positive integer.
+
+---
+
+## Notes
+
+- **Testnet Only**: This bot is designed for the Uomi Testnet. Do not use it on mainnet or with real funds.
+- **Security**: Keep your `.env` file secure and never share your private keys. Add `.env` to your `.gitignore` file to prevent accidental commits.
+- **Gas Settings**: The bot uses dynamic gas pricing based on the latest block's `baseFeePerGas` plus a fixed `2 gwei` for both `maxFeePerGas` and `maxPriorityFeePerGas`.
+- **Transaction Delay**: A 1-second delay is enforced between transactions to avoid overwhelming the network.
 
 ---
 
 ## Contributing
 
-We welcome contributions to improve the UOMI Auto Bot! To contribute:
+Contributions are welcome! To contribute:
 
-1. Fork the repository: [https://github.com/Kazuha787/UOMI-Auto-Bot](https://github.com/Kazuha787/UOMI-Auto-Bot).
-2. Create a new branch:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-3. Make your changes and commit:
-   ```bash
-   git commit -m "Add your feature description"
-   ```
-4. Push to your fork:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-5. Open a Pull Request with a detailed description of your changes.
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature`).
+3. Make your changes and commit (`git commit -m "Add your feature"`).
+4. Push to your branch (`git push origin feature/your-feature`).
+5. Open a pull request.
 
-Please follow the [Code of Conduct](CODE_OF_CONDUCT.md) and ensure your code adheres to the project's style guidelines.
-
----
-
-## Community & Support
-
-Join our community for updates, support, and discussions:
-- **Telegram**: [t.me/Offical_Im_kazuha](https://t.me/Offical_Im_kazuha)
-- **GitHub Issues**: Report bugs or suggest features at [GitHub Issues](https://github.com/Kazuha787/UOMI-Auto-Bot/issues).
+Please ensure your code follows the existing style and includes appropriate documentation.
 
 ---
 
@@ -155,13 +159,32 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Acknowledgments
 
-- **Creator**: Kazuha ([t.me/Offical_Im_kazuha](https://t.me/Offical_Im_kazuha))
-- **UOMI Testnet**: For providing the infrastructure to test this bot.
-- **Open-Source Libraries**: Thanks to `web3.py`, `colorama`, and `python-dotenv` for powering this project.
+- Built using the [Ethers.js](https://docs.ethers.io/) library for Ethereum interactions.
+- Uses [Inquirer.js](https://github.com/SBoudrias/Inquirer.js) for the interactive CLI.
+- Styled with [Chalk](https://github.com/chalk/chalk) and [Figlet](https://github.com/patorjk/figlet.js) for console output.
 
 ---
 
-*Let's fuck this testnet!* 🚀  
-*Built with 💪 by Kazuha*  
+## Contact
+
+For questions or support, open an issue on this repository or contact the creator, Kazuha, via GitHub.
 
 ---
+
+**Happy Testing on the Uomi Testnet! 🚀**
+
+---
+
+### Instructions for Use
+
+1. Copy the above content into a file named `README.md` in your project root directory.
+2. If you have a banner image, replace the placeholder URL (`https://via.placeholder.com/800x200.png?text=UOMI+Auto+Bot`) with the actual image URL.
+3. Ensure the `.gitignore` file includes `.env` to prevent accidental exposure of private keys.
+4. Push the README to your repository:
+   ```bash
+   git add README.md
+   git commit -m "Add README file"
+   git push origin main
+   ```
+
+This README is concise, professional, and tailored to your project, providing clear instructions for users and contributors. Let me know if you need further tweaks or additional sections!
