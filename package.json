@@ -1,7 +1,7 @@
 {
   "name": "uomi-auto-bot",
-  "version": "1.0.0",
-  "description": "A Node.js bot to automate wrapping and unwrapping UOMI to WUOMI on the Uomi Testnet",
+  "version": "2.0.0",
+  "description": "A Node.js bot to automate wrapping, unwrapping, swapping, and adding liquidity on the UOMI Testnet",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -27,12 +27,11 @@
   "homepage": "https://github.com/Kazuha787/UOMI-Auto-Bot#readme",
   "dependencies": {
     "chalk": "^4.1.2",
-    "dotenv": "^16.0.3",
+    "cli-table3": "^0.6.3",
     "ethers": "^5.7.2",
-    "figlet": "^1.7.0",
-    "inquirer": "^8.2.6"
+    "readline": "^1.3.0"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=14.0.0"
   }
 }
