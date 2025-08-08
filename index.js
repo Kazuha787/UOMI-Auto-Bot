@@ -90,7 +90,7 @@ const asciiBannerLines = [
   '╚██████╔╝    ╚██████╔╝    ██║ ╚═╝ ██║    ██║',
   ' ╚═════╝      ╚═════╝     ╚═╝     ╚═╝    ╚═╝',
   '',
-  '       UOMI Testnet Bot v2.0 - Created By Kazuha       ',
+  '       UOMI Testnet Bot v3.0 - Created By Kazuha       ',
   '                LETS FUCK THIS TESTNET                ',
 ];
 
