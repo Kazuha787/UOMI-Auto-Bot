@@ -53,11 +53,11 @@ Before running the UOMI Auto Bot, ensure you have the following installed:
    ```
 
 3. **Set Up Environment Variables**:
-   Create a `.env` file in the project root directory and add your private keys as follows:
+   Create a `accounts.txt` file in the project root directory and add your private keys as follows:
    ```env
-   PRIVATE_KEYS_1=your_private_key_1
-   PRIVATE_KEYS_2=your_private_key_2
-   PRIVATE_KEYS_3=your_private_key_3
+   your_private_key_1
+   your_private_key_2
+   your_private_key_3
    ```
    - Replace `your_private_key_1`, `your_private_key_2`, etc., with your actual private keys.
    - You can add as many private keys as needed ( PRIVATE_KEYS_1, PRIVATE_KEYS_2, etc.).
